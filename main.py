@@ -49,7 +49,7 @@ async def start_command(message: types.Message, state: FSMContext):
         else:
             type_file, fileID, views, password = db.get_file(args)
             if type_file is None and fileID is None:
-                await bot.send_message(chat_id=message.chat.id, text='Я не нашел данный файл:(', reply_markup = kb.menu_kb())
+                await bot.send_message(chat_id=message.chat.id, text='<b>Я не нашел данный файл:(</b>', reply_markup = kb.menu_kb())
             else:
                 if password == (None,):
                     db.update_views(args)
@@ -62,7 +62,7 @@ async def start_command(message: types.Message, state: FSMContext):
                     elif type_file[0] == 'document':
                         await bot.send_document(chat_id=message.chat.id, document=fileID[0], caption=f'Вот ваш файл:\n\n Просмотры: {int(views[0])+1}\n\nВы перешли по ссылке: https://t.me/{str(bot_name)}?start={args}', reply_markup = kb.menu_kb())
                 else:
-                    await bot.send_message(chat_id=message.chat.id, text='Кажется файл защищен паролем, введите пароль:', reply_markup = kb.back_kb())
+                    await bot.send_message(chat_id=message.chat.id, text='<b>Кажется файл защищен паролем, введите пароль:'</b>, reply_markup = kb.back_kb())
                     await state.update_data(check_password=args)
                     await Info.check_password.set()
     else:
